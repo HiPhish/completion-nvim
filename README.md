@@ -1,3 +1,12 @@
+This is my personal fork, I only patch breaking changes, no new features will
+be developed here. At the time of writing there is no adequate substitute for
+this plugin, so this repo serves to keep the boat afloat.
+
+I will eventually delete this repo, so don't rely on it being there. Fork it if
+you want to keep it.
+
+----
+
 ## WARNING: completion.nvim is no longer maintained
 
 If you are looking for an autocompletion plugin, the neovim LSP team recommends either [nvim-cmp](https://github.com/hrsh7th/nvim-cmp/) or [coq_nvim](https://github.com/ms-jpq/coq_nvim).
