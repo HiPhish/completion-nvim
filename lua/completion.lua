@@ -125,26 +125,34 @@ local function hasConfirmedCompletion()
   if completed_item.user_data == nil then return end
   if completed_item.user_data.lsp ~= nil then
     applyAddtionalTextEdits(completed_item)
-    if opt.get_option('enable_snippet') == "snippets.nvim" then
+    local enable_snippet = opt.get_option('enable_snippet')
+    if enable_snippet == "snippets.nvim" then
       require 'snippets'.expand_at_cursor(completed_item.user_data.actual_item, completed_item.word)
+    elseif enable_snippet == "snippy" then
+      -- print(vim.inspect(completed_item))
+      require 'snippy'.expand_snippet(completed_item.user_data.lsp.completion_item.insertText, completed_item.word)
     end
   end
   if opt.get_option('enable_auto_paren') == 1 then
     autoAddParens(completed_item)
   end
-  if completed_item.user_data.snippet_source == 'UltiSnips' then
+
+  local snippet_source = completed_item.user_data.snippet_source
+  if snippet_source == 'UltiSnips' then
     api.nvim_call_function('UltiSnips#ExpandSnippet', {})
-  elseif completed_item.user_data.snippet_source == 'Neosnippet' then
+  elseif snippet_source == 'Neosnippet' then
     api.nvim_input("<c-r>".."=neosnippet#expand('"..completed_item.word.."')".."<CR>")
-  elseif completed_item.user_data.snippet_source == 'vim-vsnip' then
+  elseif snippet_source == 'vim-vsnip' then
     api.nvim_call_function('vsnip#anonymous', {
       table.concat(completed_item.user_data.snippet_body, "\n"),
       {
         prefix = completed_item.word
       }
     })
-  elseif completed_item.user_data.snippet_source == 'snippets.nvim' then
+  elseif snippet_source == 'snippets.nvim' then
     require'snippets'.expand_at_cursor()
+  elseif snippet_source == 'snippy' then
+  	require('snippy').expand()  -- This is just a guess, I have not tried it
   end
 end
 

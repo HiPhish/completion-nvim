@@ -79,7 +79,7 @@ g:completion_enable_auto_popup               *g:completion_enable_auto_popup*
 g:completion_enable_snippet                      *g:completion_enable_snippet*
 
         You can specify which snippet engines you want to use. Possible values
-        are |UltiSnips| and |Neosnippet| and |vim-vsnip|.
+        are |UltiSnips|, |Neosnippet|, |vim-vsnip| and |snippy|.
 
         Note: Snippet engines will not work without setting this variables.
 
